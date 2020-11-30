@@ -35,3 +35,19 @@ Dalam halaman Data Jabatan, admin dapat melihat data jabatan yang ada. Dalam set
 
 Dihalaman ini admin juga dapat menambah data baru, juga mengupdate atau menghapus data yang sudah ada didalam DB.
 
+## Transaksi
+### Data Absensi
+Didalam halaman ini ditampilkan data absensi yang dimiliki setiap karyawan pada satu bulan dan tahun. Tampilan awal dari halaman ini adalah filter data pegawai dibagian atas, dimana terdapat pilihan untuk memilih bulan dan tahun yang tersedia. Kemudian di sebelah kanan ada tombol untuk menampilkan data dan menambah entry data kehadiran baru. Untuk pilihan tahun, hanya disediakan pilihan untuk menampilkan tahun ini, dan 5 tahun kedepan. Untuk versi selanjutnya, mungkin akan diperbaiki agar tahun yang ditampilkan bukan ke 5 tahun kedepan, melainkan 5 tahun kebelakang.
+
+Jika filter diisi, akan dikeluarkan data dalam DB yang cocok dengan pilihan filter datanya. Apabila berdasarkan pilihan filter tidak ditemukan data yang sesuai dalam DB, akan ditampilkan tabel kosong dengan peringatan "Data masih kosong, silakan input data kehadiran di bulan dan tahun yang ingin dipilih!". Jika ditemukan data yang sesuai, data akan dikeluarkan seperti biasa. Masing masing data juga dapat diedit dan dihapus. Data yang ditampilkan dalam tabel antara lain:
+* NIK
+* Nama Pegawai
+* Jenis Kelamin 
+* Jabatan
+* Hadir
+* Sakit
+* Alpha
+(Kemudian untuk kedepannya akan ditambahkan kolom ijin/lainnya).
+
+### Potongan Gaji
+### Data Gaji

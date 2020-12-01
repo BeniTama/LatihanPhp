@@ -42,30 +42,38 @@
                     </select>
                 </div>
 
+                <?php
+                if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) && $_GET['tahun'] != '')) {
+                    $bulan = $_GET['bulan'];
+                    $tahun = $_GET['tahun'];
+
+                    $bulantahun = $bulan . $tahun;
+                } else {
+                    $bulan = date('m');
+                    $tahun = date('Y');
+                    $bulantahun = $bulan . $tahun;
+                }
+                ?>
+
                 <button type="submit" class="btn btn-primary mb-2 ml-auto">
                     <i class="fas fa-eye"></i>
                     Tampilkan Data
                 </button>
-                <a href="#" class="btn btn-success mb-2 ml-4">
-                    <i class="fas fa-plus"></i>
-                    Cetak Daftar Gaji
-                </a>
+                <?php if (count($gaji) > 0) { ?>
+                    <a href="<?= base_url('admin/DataPenggajian/printPenggajian?bulan=' . $bulan), '&tahun=' . $tahun ?>" class="btn btn-success mb-2 ml-4">
+                        <i class="fas fa-print"></i>
+                        Cetak Daftar Gaji
+                    </a>
+                <?php } else { ?>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success mb-2 ml-3" data-toggle="modal" data-target="#exampleModal">
+                        <i class="fas fa-print"></i>
+                        Cetak Daftar Gaji
+                    </button>
+                <?php } ?>
             </form>
         </div>
     </div>
-
-    <?php
-    if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) && $_GET['tahun'] != '')) {
-        $bulan = $_GET['bulan'];
-        $tahun = $_GET['tahun'];
-
-        $bulantahun = $bulan . $tahun;
-    } else {
-        $bulan = date('m');
-        $tahun = date('Y');
-        $bulantahun = $bulan . $tahun;
-    }
-    ?>
 
     <div class="alert alert-info">
         Menampilkan Data Gaji Pegawai Bulan: <span class="font-weight-bold"><?= $bulan; ?></span> Tahun: <span class="font-weight-bold"><?= $tahun; ?></span>
@@ -127,3 +135,23 @@
     <?php } ?>
 </div>
 <!-- /.container-fluid -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Informasi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Data gaji yang dipilih masih kosong, silahkan input data absensi terlebih dahulu pada bulan dan tahun yang dipilih!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

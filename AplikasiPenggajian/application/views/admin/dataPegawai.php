@@ -1,5 +1,5 @@
 <!-- Begin Page Content -->
-<div class="container-fluid">
+<div class="container-fluid" style="margin-bottom: 100px;">
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -22,6 +22,7 @@
             <th class="text-center">Jabatan</th>
             <th class="text-center">Tanggal Masuk</th>
             <th class="text-center">Status</th>
+            <th class="text-center">Hak Akses</th>
             <th class="text-center">Photo</th>
             <th class="text-center">Action</th>
         </tr>
@@ -35,6 +36,13 @@
                 <td><?= $p->jabatan; ?></td>
                 <td><?= $p->tanggal_masuk; ?></td>
                 <td><?= $p->status; ?></td>
+                <td>
+                    <?php if ($p->hak_akses == 1) { ?>
+                        Admin
+                    <?php } else { ?>
+                        Pegawai
+                    <?php } ?>
+                </td>
                 <td><img src="<?= base_url() . 'assets/photo/' . $p->photo; ?>" width="75px"></td>
                 <td>
                     <center>

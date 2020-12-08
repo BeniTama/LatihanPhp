@@ -2,6 +2,17 @@
 
 class DataPegawai extends CI_Controller
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        if ($this->session->userdata('hak_akses') != 1) {
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Halaman hanya dapat diakses admin!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('Welcome');
+        }
+    }
+
     public function index()
     {
         $data['title'] = "Data Pegawai";
@@ -37,6 +48,9 @@ class DataPegawai extends CI_Controller
             $tanggal_masuk = $this->input->post('tanggal_masuk');
             $jabatan = $this->input->post('jabatan');
             $status = $this->input->post('status');
+            $hak_akses = $this->input->post('hak_akses');
+            $username = $this->input->post('username');
+            $password = md5($this->input->post('password'));
             $photo = $_FILES['photo']['name'];
             if ($photo = '') {
             } else {
@@ -58,6 +72,9 @@ class DataPegawai extends CI_Controller
                 'tanggal_masuk' => $tanggal_masuk,
                 'jabatan' => $jabatan,
                 'status' => $status,
+                'hak_akses' => $hak_akses,
+                'username' => $username,
+                'password' => $password,
                 'photo' => $photo
             );
 
@@ -106,9 +123,11 @@ class DataPegawai extends CI_Controller
             $tanggal_masuk = $this->input->post('tanggal_masuk');
             $jabatan = $this->input->post('jabatan');
             $status = $this->input->post('status');
+            $hak_akses = $this->input->post('hak_akses');
+            $username = $this->input->post('username');
+            $password = md5($this->input->post('password'));
             $photo = $_FILES['photo']['name'];
             if ($photo) {
-            } else {
                 $config['upload_path'] = './assets/photo';
                 $config['allowed_types'] = 'jpg|jpeg|png|tiff';
                 $this->load->library('upload', $config);
@@ -128,6 +147,9 @@ class DataPegawai extends CI_Controller
                 'tanggal_masuk' => $tanggal_masuk,
                 'jabatan' => $jabatan,
                 'status' => $status,
+                'hak_akses' => $hak_akses,
+                'username' => $username,
+                'password' => $password,
                 'photo' => $photo
             );
 

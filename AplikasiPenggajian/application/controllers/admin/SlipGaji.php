@@ -1,6 +1,6 @@
 <?php
 
-class LaporanGaji extends CI_Controller
+class SlipGaji extends CI_Controller
 {
 
     public function __construct()
@@ -15,16 +15,21 @@ class LaporanGaji extends CI_Controller
 
     public function index()
     {
-        $data['title'] = "Data Penggajian";
+        $data['title'] = "Slip Gaji Pegawai";
+
+        $data['pegawai'] = $this->penggajianModel->get_data('data_pegawai')->result();
 
         $this->load->view('templates_admin/header', $data);
         $this->load->view('templates_admin/sidebar', $data);
-        $this->load->view('admin/laporanGaji', $data);
+        $this->load->view('admin/dataSlipGaji', $data);
         $this->load->view('templates_admin/footer');
     }
 
-    public function printLaporanGaji()
+    public function printSlipGaji()
     {
+        $data['title'] = "Cetak Slip Gaji";
+        $nama = $this->input->post('nama_pegawai');
+
         if ((isset($_GET['bulan']) && $_GET['bulan'] != '') && (isset($_GET['tahun']) && $_GET['tahun'] != '')) {
             $bulan = $_GET['bulan'];
             $tahun = $_GET['tahun'];
@@ -36,15 +41,15 @@ class LaporanGaji extends CI_Controller
             $bulantahun = $bulan . $tahun;
         }
 
-        $data['potongan'] = $this->penggajianModel->get_data('potongan_gaji')->result();
-        $data['printGaji'] = $this->db->query("SELECT data_pegawai.nik, data_pegawai.nama_pegawai, data_pegawai.jenis_kelamin, data_jabatan.nama_jabatan, data_jabatan.gaji_pokok, data_jabatan.tj_transport, data_jabatan.uang_makan, data_kehadiran.alpha, data_kehadiran.sakit 
+        $data['slip_gaji'] = $this->db->query("SELECT data_pegawai.nik, data_pegawai.nama_pegawai, data_jabatan.nama_jabatan, data_jabatan.gaji_pokok, data_jabatan.tj_transport, data_jabatan.uang_makan, data_kehadiran.alpha
         FROM data_pegawai
-        INNER JOIN data_kehadiran ON data_kehadiran.nik = data_pegawai.nik
-        INNER JOIN data_jabatan ON data_jabatan.nama_jabatan = data_pegawai.jabatan
-        WHERE data_kehadiran.bulan = '$bulantahun'
-        ORDER BY data_pegawai.nama_pegawai ASC")->result();
+        INNER JOIN data_kehadiran ON data_pegawai.nik = data_kehadiran.nik
+        INNER JOIN data_jabatan ON data_pegawai.jabatan = data_jabatan.nama_jabatan
+        WHERE data_kehadiran.bulan = '$bulantahun' AND data_kehadiran.nama_pegawai = '$nama'")->result();
+
+        $data['potongan'] = $this->penggajianModel->get_data('potongan_gaji')->result();
 
         $this->load->view('templates_admin/header', $data);
-        $this->load->view('admin/printDataPenggajian', $data);
+        $this->load->view('admin/printSlipGaji', $data);
     }
 }

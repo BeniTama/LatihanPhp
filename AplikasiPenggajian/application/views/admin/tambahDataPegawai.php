@@ -16,6 +16,16 @@
                     <?= form_error('nik', '<div class="text-small text-danger"></div>'); ?>
                 </div>
                 <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="username" class="form-control">
+                    <?= form_error('username', '<div class="text-small text-danger"></div>'); ?>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control">
+                    <?= form_error('password', '<div class="text-small text-danger"></div>'); ?>
+                </div>
+                <div class="form-group">
                     <label>Nama Karyawan</label>
                     <input type="text" name="nama_pegawai" class="form-control">
                     <?= form_error('nama_pegawai', '<div class="text-small text-danger"></div>'); ?>
@@ -52,6 +62,14 @@
                         <option value="Pegawai Tidak Tetap">Pegawai Tidak Tetap</option>
                     </select>
                     <?= form_error('status', '<div class="text-small text-danger"></div>'); ?>
+                </div>
+                <div class="form-group">
+                    <label>Hak Akses</label>
+                    <select name="hak_akses" class="form-control">
+                        <option value="">--Pilih Hak Akses--</option>
+                        <option value="1">Admin</option>
+                        <option value="2">Pegawai</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Photo</label>
